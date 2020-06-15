@@ -36,7 +36,7 @@ class Clients extends Component {
     } = this.state;
     axios
       .post(
-        endpoint + "/api/client",
+        endpoint + "/client/api/client",
         {
           FirstName: FirstName,
           LastName: LastName,
