@@ -11,6 +11,7 @@ import (
 
 	"../models"
 
+	"github.com/gorilla/sessions"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -24,6 +25,8 @@ const lawName = "lawyers"
 
 var collection *mongo.Collection
 var lawyerCollection *mongo.Collection
+var key = make([]byte, 64)
+var store = sessions.NewCookieStore(key)
 
 func init() {
 
@@ -248,24 +251,38 @@ func LawyerSignIn(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
+	session, _ := store.Get(r, "cookie-name")
+
 	var lawyerSignIn models.LawyerSignIn
 	_ = json.NewDecoder(r.Body).Decode(&lawyerSignIn)
-	auth := lawyerAuth(lawyerSignIn.EmailAddress, lawyerSignIn.Password)
+	lawyerAuth(lawyerSignIn.EmailAddress, lawyerSignIn.Password, w, r)
+	if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
+		http.Error(w, "Forbidden", http.StatusForbidden)
+		fmt.Println("ERROR")
+		return
+	}
+	fmt.Println("YAY")
+
+	SendAuth(w, r)
 
 }
 
-func lawyerAuth(email string, pass string) bool {
+func SendAuth(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	json.NewEncoder(w).Encode(true)
+	fmt.Println("sent")
+}
+
+func lawyerAuth(email string, pass string, w http.ResponseWriter, r *http.Request) {
 	lawyersPrimitive := getAllLawyers()
-	var auth = false
+	session, _ := store.Get(r, "cookie-name")
 
 	for _, b := range lawyersPrimitive {
 		if email == b[("emailaddress")].(string) && pass == b[("password")].(string) {
 			fmt.Println("Signed In")
-			auth = true
+			session.Values["authenticated"] = true
+			session.Save(r, w)
 		}
 	}
-	if auth == false {
-		fmt.Println("Authentication Failed!")
-	}
-	return auth
 }

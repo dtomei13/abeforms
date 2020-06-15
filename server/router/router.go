@@ -14,5 +14,6 @@ func Router() *mux.Router {
 	router.HandleFunc("/client/api/client", middleware.CreateClientsInfo).Methods("POST", "OPTIONS")
 	router.HandleFunc("/lawyerdashboard/sign_up/api/signup", middleware.LawyerSignUp).Methods("POST", "OPTIONS")
 	router.HandleFunc("/lawyerdashboard/api/signin", middleware.LawyerSignIn).Methods("POST", "OPTIONS")
+	router.HandleFunc("/lawyerdashboard/api/signin", middleware.SendAuth).Methods("GET", "OPTIONS")
 	return router
 }

@@ -22,8 +22,9 @@ function App() {
     <Switch>
 
         <Route exact path="/client" component = {Clients} />
-        <Route exact path="/lawyerdashboard" component = {LawyerSignIn} />
+        <Route exact path="/lawyerdashboard/sign_in" component = {LawyerSignIn} />
         <Route exact path="/lawyerdashboard/sign_up" component = {LawyerSignUp} />
+        <Route exact path="/lawyerdashboard" component = {LawyerSignIn} />
 
       </Switch>
       </Router>

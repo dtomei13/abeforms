@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import './App.css';
-import { Container } from "semantic-ui-react";
+import { Container, Form } from "semantic-ui-react";
+import { Redirect } from 'react-router-dom'
 
 
 let endpoint = "http://localhost:8080";
@@ -12,6 +13,7 @@ class LawyerSignIn extends Component{
       this.state = {
         EmailAddress: "",
         Password: "",
+        redirect: "",
       };
     }
     handleChange = (event) =>{
@@ -20,7 +22,7 @@ class LawyerSignIn extends Component{
       });
     }
   
-    onSubmit = () =>{
+    onPress = () =>{
       
       const { EmailAddress, Password } = this.state;
       axios.post(endpoint + "/lawyerdashboard/api/signin",
@@ -33,23 +35,37 @@ class LawyerSignIn extends Component{
           "Content-Type": "application/x-www-form-urlencoded"
         }
       }
-      ).then((response) => {
-          console.log(response);
+      ).then(res => {
+        this.getAuthentication();
       })
       };
+      
+      getAuthentication = () => {
+        axios.get(endpoint + "/lawyerdashboard/api/signin").then(res => {
+          if (res.data){
+            this.setState({redirect: true});
+          }
+        })
+      }
     
     
     render() {
       
         const { EmailAddress, Password } = this.state;
+        if (this.state.redirect) {
+          return <Redirect to={"/lawyerdashboard"} />
+        }
       return (
+        
         <Container>
+          
           <div className="App">
               <div className="container" id="registration-form">
                   <div className="image"></div>
                   <div className="frm">
-                      <h1>Create your Abe Legal Account</h1>
-                <form onSubmit={this.onSubmit}>
+                      <h1>Sign in</h1>
+                      <p>to continue to Abe</p>
+                <Form onSubmit={this.onPress}>
                   <div class="form-group">
                     <h5>Email Address:</h5>
                     <div>
@@ -84,17 +100,18 @@ class LawyerSignIn extends Component{
                   </div>
   
                   <div class="form-group">
-                    <button type="submit" class="btn btn-success btn-lg">
+                    <button class="btn btn-success btn-lg">
                       Submit
                     </button>
                   </div>
                   <p>Don't have an account? Click <a href="/lawyerdashboard/sign_up">here</a></p>
-                </form>
+                </Form>
                   </div>
               </div>
           </div>
           </Container>
       );
+      
     }
   }
 
