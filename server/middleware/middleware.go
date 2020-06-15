@@ -11,6 +11,7 @@ import (
 
 	"../models"
 
+	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -53,30 +54,6 @@ func init() {
 }
 
 //Template for future projects -> Grabs all clients infos
-func getClientsInfo() []primitive.M {
-
-	data, err := collection.Find(context.Background(), bson.D{{}})
-
-	if err != nil {
-		log.Fatal(err)
-	}
-	var clients []primitive.M
-	for data.Next(context.Background()) {
-		var client bson.M
-		e := data.Decode(&client)
-		if e != nil {
-			log.Fatal(e)
-		}
-		clients = append(clients, client)
-
-	}
-	if err := data.Err(); err != nil {
-		log.Fatal(err)
-	}
-
-	data.Close(context.Background())
-	return clients
-}
 
 // GetAllLawyerEmails Gets all the email addresses of lawyers from the database
 func GetAllLawyerEmails() []primitive.M {
@@ -285,4 +262,66 @@ func lawyerAuth(email string, pass string, w http.ResponseWriter, r *http.Reques
 			session.Save(r, w)
 		}
 	}
+}
+
+func GetCase(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
+	payload := getClientsInfo()
+
+	json.NewEncoder(w).Encode(payload)
+
+}
+
+func getClientsInfo() []primitive.M {
+
+	data, err := collection.Find(context.Background(), bson.D{{}})
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	var clients []primitive.M
+	for data.Next(context.Background()) {
+		var client bson.M
+		e := data.Decode(&client)
+		if e != nil {
+			log.Fatal(e)
+		}
+		clients = append(clients, client)
+
+	}
+	if err := data.Err(); err != nil {
+		log.Fatal(err)
+	}
+
+	data.Close(context.Background())
+	return clients
+}
+
+func CaseComplete(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Set("Content-Type", "application/x-www-form-urlencoded")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "PUT")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
+	params := mux.Vars(r)
+	caseComplete(params["id"])
+	json.NewEncoder(w).Encode(params["id"])
+}
+
+func caseComplete(lawCase string) {
+	fmt.Println(lawCase)
+	id, _ := primitive.ObjectIDFromHex(lawCase)
+	filter := bson.M{"_id": id}
+	update := bson.M{"$set": bson.M{"status": true}}
+	result, err := collection.UpdateOne(context.Background(), filter, update)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("modified count: ", result.ModifiedCount)
 }

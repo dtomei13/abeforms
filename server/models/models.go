@@ -12,6 +12,7 @@ type Clients struct {
 	StateOfIssue string             `json:"StateOfIssue,omitempty"`
 	FindHow      string             `json:"FindHow,omitempty"`
 	SocialMedia  string             `json:"SocialMedia,omitempty"`
+	Status       bool               `json:"status,omitempty"`
 }
 
 type LawyerSignUp struct {
@@ -31,4 +32,3 @@ type LawyerSignIn struct {
 	EmailAddress string             `json:"EmailAddress,omitempty"`
 	Password     string             `json:"Password,omitempty"`
 }
- 
