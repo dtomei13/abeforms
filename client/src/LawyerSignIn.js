@@ -37,6 +37,7 @@ class LawyerSignIn extends Component{
       }
       ).then(res => {
         this.getAuthentication();
+        console.log(res)
       })
       };
       

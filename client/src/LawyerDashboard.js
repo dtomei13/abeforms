@@ -66,7 +66,7 @@ class LawyerDashboard extends Component{
     }
 
     caseComplete = id => {
-        axios.put(endpoint + "/lawyerdashboard/api/takecase/" + id,{
+        axios.post(endpoint + "/lawyerdashboard/api/takecase/" + id,{
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
               }

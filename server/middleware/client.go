@@ -65,7 +65,7 @@ func insertOneClient(client models.Clients) *mongo.InsertOneResult {
 func sendEmails(lawyerEmails []string, clientInfo map[string]string) {
 
 	fmt.Println("Goes to Emails")
-	auth := smtp.PlainAuth("", "EMAIL", "PASS", "smtp.gmail.com")
+	auth := smtp.PlainAuth("", "austin.abe.legal@gmail.com", "ambusher922", "smtp.gmail.com")
 	to := lawyerEmails
 	msg := []byte("To: " + clientInfo["Email"] + "\r\n" +
 		"Subject: Abe Consult Alert\r\n" +

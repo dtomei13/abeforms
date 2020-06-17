@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/gorilla/sessions"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -19,8 +18,6 @@ const lawName = "lawyers"
 
 var clientcollection *mongo.Collection
 var lawyerCollection *mongo.Collection
-var key = make([]byte, 64)
-var store = sessions.NewCookieStore(key)
 
 func init() {
 

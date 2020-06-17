@@ -1,6 +1,8 @@
 package models
 
-import "go.mongodb.org/mongo-driver/bson/primitive"
+import (
+	"go.mongodb.org/mongo-driver/bson/primitive"
+)
 
 type Clients struct {
 	ID           primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
@@ -31,4 +33,14 @@ type LawyerSignIn struct {
 	ID           primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
 	EmailAddress string             `json:"EmailAddress,omitempty"`
 	Password     string             `json:"Password,omitempty"`
+}
+
+type TokenDetails struct {
+	EmailAddress string `json:"EmailAddress,omitempty"`
+	AccessToken  string
+	RefreshToken string
+	AccessUuid   string
+	RefreshUuid  string
+	AtExpires    int64
+	RtExpires    int64
 }
