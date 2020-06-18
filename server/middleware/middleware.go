@@ -44,7 +44,6 @@ func init() {
 }
 
 func getInfo(collection *mongo.Collection) []primitive.M {
-
 	data, err := collection.Find(context.Background(), bson.D{{}})
 
 	if err != nil {

@@ -77,7 +77,7 @@ func sendEmails(lawyerEmails []string, clientInfo map[string]string) {
 		"Description: " + clientInfo["Description"] + "\r\n" +
 		"Are you interested in doing a consultation? If so, reply to this email ASAP.\r\n" +
 		"Talib - Abe Legal Director & Co-Founder")
-	err := smtp.SendMail("smtp.gmail.com:587", auth, "EMAIL", to, msg)
+	err := smtp.SendMail("smtp.gmail.com:587", auth, "austin.abe.legal@gmail.com", to, msg)
 	if err != nil {
 		log.Fatal(err)
 	} else {
