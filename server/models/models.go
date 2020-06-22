@@ -45,3 +45,9 @@ type TokenDetails struct {
 	AtExpires    int64
 	RtExpires    int64
 }
+
+type ZoomMeeting struct {
+	ClientEmail  string `json:"clientEmail,omitempty"`
+	UserEmail    string `json:"userEmail,omitempty"`
+	SelectedTime string `json:"selectedTime,omitempty"`
+}

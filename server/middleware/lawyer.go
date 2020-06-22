@@ -11,6 +11,9 @@ import (
 
 	"../models"
 	"github.com/dgrijalva/jwt-go"
+
+	//"github.com/dgrijalva/jwt-go/request"
+	"github.com/donvito/zoom-go/zoomAPI"
 	"github.com/gorilla/mux"
 	"github.com/twinj/uuid"
 	"go.mongodb.org/mongo-driver/bson"
@@ -217,4 +220,39 @@ func CreateToken(userid primitive.ObjectID, email string) (*models.TokenDetails,
 		log.Fatal(err)
 	}
 	return td, nil
+}
+
+func CreateMeeting(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
+	var zoomMeeting models.ZoomMeeting
+	_ = json.NewDecoder(r.Body).Decode(&zoomMeeting)
+	fmt.Println(zoomMeeting.ClientEmail)
+
+	apiClient := zoomAPI.NewClient("https://api.zoom.us/v2", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6Inp6ODZTcmR0UmRLMm11TU8tTktKR0EiLCJleHAiOjE1OTI2Nzg1MDksImlhdCI6MTU5MjU5MjEwN30.AuoGUgjoI4T4YL3dnnIHjx2DS7HCp82iD-djrI4-UaE")
+	userId := ("austin.abe.legal@gmail.com")
+
+	var resp zoomAPI.CreateMeetingResponse
+	var err error
+
+	resp, err = apiClient.CreateMeeting(userId,
+		"Client and Lawyer Consultation",
+		2,
+		"2020-06-24T22:00:00Z",
+		30,
+		zoomMeeting.ClientEmail,
+		"Asia/Singapore",
+		"pass8888", //set this with your desired password for better security, max 8 chars
+		"Discuss next steps and ways to contribute for this project.",
+		nil,
+		nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("Created meeting : id = %d, topic = %s, join url = %s, start time = %s\n", resp.Id,
+		resp.Topic, resp.JoinUrl, resp.StartTime)
 }
