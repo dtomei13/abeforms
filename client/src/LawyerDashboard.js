@@ -32,6 +32,8 @@ class LawyerDashboard extends Component {
     this.getMyCase();
   }
 
+
+
   scheduleMeeting = () => {
     //TODO: This part, Posting info
     const { selectedTime } = this.state;
@@ -46,6 +48,7 @@ class LawyerDashboard extends Component {
         {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
+            
           },
         }
       )
@@ -57,7 +60,12 @@ class LawyerDashboard extends Component {
   };
 
   getOpenCase = () => {
-    axios.get(endpoint + "/lawyerdashboard/api/opencases").then((res) => {
+    console.log("Here")
+    console.log(this.state)
+    axios.get(endpoint + "/lawyerdashboard/api/opencases",{headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },}).then((res) => {
+      
       console.log(res);
       if (res.data) {
         console.log("setting open cases info");
@@ -244,15 +252,8 @@ class LawyerDashboard extends Component {
   render() {
     try {
       const { lawyerEmail, selectedTime, clientEmail } = this.state;
-
-      userEmail = this.props.location.state.email;
-      var accessToken = this.props.location.state.access_token;
-      var refreshToken = this.props.location.state.refresh_token;
-      var expiry = this.props.location.state.expiry;
-      console.log(this.state);
-      console.log(expiry);
-      console.log(userEmail);
       console.log("HERE");
+      console.log(this.state)
     } catch (e) {
       return <Redirect to={"/lawyerdashboard/sign_in"} />; //Check if user is authenticated
     }

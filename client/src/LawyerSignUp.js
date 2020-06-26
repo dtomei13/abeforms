@@ -38,7 +38,7 @@ class LawyerSignUp extends Component {
     } = this.state;
     axios
       .post(
-        endpoint + "/lawyerdashboard/sign_up/api/signup",
+        endpoint + "/lawyerdashboard/api/signup",
         {
           FirstName: FirstName,
           LastName: LastName,

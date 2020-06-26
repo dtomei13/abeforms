@@ -36,24 +36,11 @@ class LawyerSignIn extends Component {
           },
         }
       )
-      .then((data) => {
-        this.getAuthentication();
-      });
-  };
-
-  getAuthentication = () => {
-    axios.get(endpoint + "/lawyerdashboard/api/signin").then((res) => {
-      if (res.data) {
-        console.log(res.data);
+      .then((res) => {
         this.setState({
           redirect: true,
-          email: res.data.user,
-          access_token: res.data.access_token,
-          refresh_token: res.data.refresh_token,
-          expiry: res.data.expiry,
-        });
-      }
-    });
+        })
+      });
   };
 
   render() {
@@ -63,11 +50,6 @@ class LawyerSignIn extends Component {
         <Redirect
           to={{
             pathname: "/lawyerdashboard",
-            state: {
-              email: this.state.email,
-              access_token: this.state.access_token,
-              refresh_token: this.state.refresh_token,
-            },
           }}
         />
       );
