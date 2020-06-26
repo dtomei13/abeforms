@@ -1,68 +1,46 @@
-package middleware
+package middlewares
 
 import (
 	"context"
-	"fmt"
+	"github.com/austinlhx/server/auth"
+	"github.com/austinlhx/server/controllers"
+	"github.com/austinlhx/server/models"
+	"github.com/austinlhx/server/utils"
 	"log"
-
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
+	"net/http"
 )
 
-const connectionString = "mongodb+srv://akkshay:%40Whatever12@abelegal-rrztu.gcp.mongodb.net/test"
-const dbName = "AbeDB"
-const collName = "clients"
-const lawName = "lawyers"
-
-var clientcollection *mongo.Collection
-var lawyerCollection *mongo.Collection
-
-func init() {
-
-	clientOptions := options.Client().ApplyURI(connectionString)
-
-	client, err := mongo.Connect(context.TODO(), clientOptions)
-
-	if err != nil {
-		log.Fatal(err)
+func SetMiddlewareLogger(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("%s %s%s %s", r.Method, r.Host, r.RequestURI, r.Proto)
+		next(w, r)
 	}
-
-	err = client.Ping(context.TODO(), nil)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println("Database is up and running")
-
-	clientcollection = client.Database(dbName).Collection(collName)
-	lawyerCollection = client.Database(dbName).Collection(lawName)
-
-	fmt.Println("Collection instance created!")
 }
 
-func getInfo(collection *mongo.Collection) []primitive.M {
-	data, err := collection.Find(context.Background(), bson.D{{}})
-
-	if err != nil {
-		log.Fatal(err)
+func SetMiddlewareJSON(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		next(w, r)
 	}
-	var clients []primitive.M
-	for data.Next(context.Background()) {
-		var client bson.M
-		e := data.Decode(&client)
-		if e != nil {
-			log.Fatal(e)
+}
+
+func SetMiddlewareAuthentication(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		r.Header.Set("Authorization", controllers.AuthToken)
+		token, error := auth.ExtractToken(w, r)
+		if token == nil {
+			return
 		}
-		clients = append(clients, client)
-
+		if error != nil{
+			log.Println(error)
+		}
+		if token.Valid {
+			ctx := context.WithValue(
+				r.Context(),
+				utils.UserKey("user"),
+				token.Claims.(*models.Claim).User,
+			)
+			next(w, r.WithContext(ctx))
+		}
 	}
-	if err := data.Err(); err != nil {
-		log.Fatal(err)
-	}
-
-	data.Close(context.Background())
-	return clients
 }
