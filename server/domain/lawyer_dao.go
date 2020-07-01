@@ -3,12 +3,13 @@ package domain
 import (
 	"context"
 	"fmt"
-	"github.com/austinlhx/server/database"
-	"github.com/austinlhx/server/models"
-	"github.com/austinlhx/server/utils"
-	"go.mongodb.org/mongo-driver/bson"
 	"log"
 	"net/http"
+
+	"../database"
+	"../models"
+	"../utils"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 func GetLawyer(email string, password string) (*models.Lawyers, *utils.ApplicationError) {
@@ -55,4 +56,3 @@ func AddLawyer(lawyerInfo models.Lawyers) *utils.ApplicationError {
 
 	return nil //no error!
 }
-

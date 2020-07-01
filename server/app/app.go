@@ -2,7 +2,7 @@ package app
 
 import (
 	"fmt"
-	"github.com/austinlhx/server/router"
+	"../router"
 	"log"
 	"net/http"
 )

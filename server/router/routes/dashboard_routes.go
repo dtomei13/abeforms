@@ -1,8 +1,9 @@
 package routes
 
 import (
-	"github.com/austinlhx/server/controllers"
 	"net/http"
+
+	"../../controllers"
 )
 
 var dashboardRoutes = []Route{
@@ -19,16 +20,27 @@ var dashboardRoutes = []Route{
 		AuthRequired: true,
 	},
 	Route{
-		URI: "/lawyerdashboard/api/takecase/{id}",
-		Method: http.MethodPut,
-		Handler: controllers.TakeCase,
+		URI:          "/lawyerdashboard/api/takecase/{id}",
+		Method:       http.MethodPost,
+		Handler:      controllers.TakeCase,
 		AuthRequired: true,
 	},
 	Route{
-		URI: "/lawyerdashboard/api/schedulemeeting",
-		Method: http.MethodPost,
-		Handler: controllers.CreateMeeting,
+		URI:          "/lawyerdashboard/api/schedulemeeting",
+		Method:       http.MethodPost,
+		Handler:      controllers.CreateMeeting,
 		AuthRequired: true,
 	},
-
+	Route{
+		URI:          "/clientdashboard/api/unassignedcases",
+		Method:       http.MethodGet,
+		Handler:      controllers.GetUnassignedCase,
+		AuthRequired: true,
+	},
+	Route{
+		URI:          "/clientdashboard/api/assignedcases",
+		Method:       http.MethodGet,
+		Handler:      controllers.GetAssignedCase,
+		AuthRequired: true,
+	},
 }

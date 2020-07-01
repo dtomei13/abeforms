@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import NestedModal from "./NestedModal.js";
 import "./App.css";
 import {
   Card,
@@ -161,7 +162,7 @@ class LawyerDashboard extends Component {
   };
   caseComplete = (id) => {
     axios
-      .put(endpoint + "/lawyerdashboard/api/takecase/" + id, {
+      .post(endpoint + "/lawyerdashboard/api/takecase/" + id, id, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -219,17 +220,18 @@ class LawyerDashboard extends Component {
                         </Modal.Description>
                       </Modal.Content>
                       <ModalActions>
-                        <Button
-                          basic
-                          color="purple"
-                          content="Purple"
-                          onClick={() => {
-                            this.scheduleMeeting();
-                            clientEmail = item.emailaddress;
-                          }}
-                        >
-                          Schedule a zoom meeting
-                        </Button>
+                        {/*<Button*/}
+                        {/*  basic*/}
+                        {/*  color="purple"*/}
+                        {/*  content="Purple"*/}
+                        {/*  onClick={() => {*/}
+                        {/*    this.scheduleMeeting();*/}
+                        {/*    clientEmail = item.emailaddress;*/}
+                        {/*  }}*/}
+                        {/*>*/}
+                        {/*  Schedule a zoom meeting*/}
+                        {/*</Button>*/}
+                        <NestedModal />
                       </ModalActions>
                     </Modal>
                   </div>

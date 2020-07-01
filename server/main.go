@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/austinlhx/server/app"
-	"github.com/austinlhx/server/database"
+	"./app"
+	"./database"
 )
 
 func main() {

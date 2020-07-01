@@ -3,18 +3,19 @@ package domain
 import (
 	"context"
 	"fmt"
-	"github.com/austinlhx/server/database"
-	"github.com/austinlhx/server/models"
-	"github.com/austinlhx/server/utils"
+	"log"
+	"net/http"
+
+	"../database"
+	"../models"
+	"../utils"
 	"github.com/donvito/zoom-go/zoomAPI"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"log"
-	"net/http"
 )
 
 func GetCase() ([]primitive.M, *utils.ApplicationError) {
-	collection := database.ClientCollection
+	collection := database.ClaimsCollection
 	data, err := collection.Find(context.Background(), bson.D{{}}) //TODO: Find all with empty lawyers
 	if err != nil {
 		return nil, &utils.ApplicationError{
@@ -52,8 +53,8 @@ func GetCase() ([]primitive.M, *utils.ApplicationError) {
 	return openCases, nil
 }
 
-func GetEachCase(user models.Lawyers) ([]primitive.M, *utils.ApplicationError){
-	collection := database.ClientCollection
+func GetEachCase(user models.Lawyers) ([]primitive.M, *utils.ApplicationError) {
+	collection := database.ClaimsCollection
 	filter := &bson.M{"lawyerassigned": user.EmailAddress}
 	data, err := collection.Find(context.TODO(), filter)
 	var eachCases []primitive.M
@@ -75,9 +76,10 @@ func GetEachCase(user models.Lawyers) ([]primitive.M, *utils.ApplicationError){
 	return eachCases, nil
 }
 
-func TakeCase(caseID string, user models.Lawyers) *utils.ApplicationError{
+func TakeCase(caseID string, user models.Lawyers) *utils.ApplicationError {
+	log.Println("Running TakeCase now......!!!!!!!!......!!!!!......")
 	id, err := primitive.ObjectIDFromHex(caseID)
-	if err != nil{
+	if err != nil {
 		return &utils.ApplicationError{
 			Message:    fmt.Sprintf("Taking case failed!"),
 			StatusCode: http.StatusInternalServerError,
@@ -87,8 +89,8 @@ func TakeCase(caseID string, user models.Lawyers) *utils.ApplicationError{
 	}
 	filter := bson.M{"_id": id}
 	update := bson.M{"$set": bson.M{"lawyerassigned": user.EmailAddress}}
-	_, error := database.ClientCollection.UpdateOne(context.Background(), filter, update)
-	if error != nil{
+	_, error := database.ClaimsCollection.UpdateOne(context.Background(), filter, update)
+	if error != nil {
 		return &utils.ApplicationError{
 			Message:    fmt.Sprintf("Updating case to DB failed!"),
 			StatusCode: http.StatusInternalServerError,
@@ -98,7 +100,7 @@ func TakeCase(caseID string, user models.Lawyers) *utils.ApplicationError{
 	return nil
 }
 
-func CreateMeeting(zoomInfo utils.ZoomMeeting, user models.Lawyers)*utils.ApplicationError{
+func CreateMeeting(zoomInfo utils.ZoomMeeting, user models.Lawyers) *utils.ApplicationError {
 	apiClient := zoomAPI.NewClient("https://api.zoom.us/v2", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6Inp6ODZTcmR0UmRLMm11TU8tTktKR0EiLCJleHAiOjE1OTI2Nzg1MDksImlhdCI6MTU5MjU5MjEwN30.AuoGUgjoI4T4YL3dnnIHjx2DS7HCp82iD-djrI4-UaE")
 	userId := ("austin.abe.legal@gmail.com")
 	log.Println(user.EmailAddress)

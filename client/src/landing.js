@@ -48,7 +48,7 @@ class LandingPage extends Component {
                   <span className="date">Joined in 2015</span>
                 </Card.Meta>
                 <Card.Description>
-                  <Button primary href="/client">
+                  <Button primary href="/clientdashboard/sign_in">
                     Click Here!
                   </Button>
                 </Card.Description>

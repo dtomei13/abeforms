@@ -1,15 +1,16 @@
 package routes
 
 import (
-	"github.com/austinlhx/server/controllers"
 	"net/http"
+
+	"../../controllers"
 )
 
 var clientFormRoutes = []Route{
 	Route{
 		URI:          "/client/api/client",
 		Method:       http.MethodPost,
-		Handler:      controllers.AddClient,
+		Handler:      controllers.AddCase,
 		AuthRequired: false,
 	},
 }

@@ -1,9 +1,10 @@
 package routes
 
 import (
-	"github.com/austinlhx/server/middleware"
-	"github.com/gorilla/mux"
 	"net/http"
+
+	"../../middleware"
+	"github.com/gorilla/mux"
 )
 
 type Route struct {

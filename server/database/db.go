@@ -10,11 +10,13 @@ import (
 
 const connectionString = "mongodb+srv://akkshay:%40Whatever12@abelegal-rrztu.gcp.mongodb.net/test"
 const dbName = "AbeDB"
-const collName = "clients"
+const collName = "client_info"
 const lawName = "lawyers"
+const claimName = "clients"
 
 var ClientCollection *mongo.Collection
 var LawyerCollection *mongo.Collection
+var ClaimsCollection *mongo.Collection
 
 func ConnectDB() {
 
@@ -36,6 +38,7 @@ func ConnectDB() {
 
 	ClientCollection = client.Database(dbName).Collection(collName)
 	LawyerCollection = client.Database(dbName).Collection(lawName)
+	ClaimsCollection = client.Database(dbName).Collection(claimName)
 
 	fmt.Println("Collection instance created!")
 

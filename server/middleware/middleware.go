@@ -1,13 +1,14 @@
 package middlewares
 
 import (
+	"../auth"
+	"../models"
+	"../utils"
 	"context"
-	"github.com/austinlhx/server/auth"
-	"github.com/austinlhx/server/controllers"
-	"github.com/austinlhx/server/models"
-	"github.com/austinlhx/server/utils"
 	"log"
 	"net/http"
+
+	"../controllers"
 )
 
 func SetMiddlewareLogger(next http.HandlerFunc) http.HandlerFunc {
@@ -27,20 +28,41 @@ func SetMiddlewareJSON(next http.HandlerFunc) http.HandlerFunc {
 func SetMiddlewareAuthentication(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		r.Header.Set("Authorization", controllers.AuthToken)
-		token, error := auth.ExtractToken(w, r)
-		if token == nil {
-			return
+
+		if controllers.TypeOfUser == "client" {
+			token, error := auth.ExtractClientToken(w, r)
+			if token == nil {
+				return
+			}
+			if error != nil {
+				log.Println(error)
+			}
+			if token.Valid {
+				ctx := context.WithValue(
+					r.Context(),
+					utils.UserKey("user"),
+					token.Claims.(*models.ClientClaim).User,
+				)
+				next(w, r.WithContext(ctx))
+			}
 		}
-		if error != nil{
-			log.Println(error)
+		if controllers.TypeOfUser == "lawyer" {
+			token, error := auth.ExtractToken(w, r)
+			if token == nil {
+				return
+			}
+			if error != nil {
+				log.Println(error)
+			}
+			if token.Valid {
+				ctx := context.WithValue(
+					r.Context(),
+					utils.UserKey("user"),
+					token.Claims.(*models.Claim).User,
+				)
+				next(w, r.WithContext(ctx))
+			}
 		}
-		if token.Valid {
-			ctx := context.WithValue(
-				r.Context(),
-				utils.UserKey("user"),
-				token.Claims.(*models.Claim).User,
-			)
-			next(w, r.WithContext(ctx))
-		}
+
 	}
 }
