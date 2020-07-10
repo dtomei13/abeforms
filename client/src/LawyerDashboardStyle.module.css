@@ -1,0 +1,26 @@
+.logo {
+
+    width: 20%;
+    height: 20%;
+    margin-left: 0% !important;
+    margin-right: 50% !important;
+    margin-top: 10px !important;
+}
+
+.CF {
+    color: #10AACC;
+    font-weight: 100;
+    font-size: 2.8em;
+    color: rgb(0, 171, 203);
+    font-family: "Montserrat", sans-serif;
+}
+
+
+.CF:focus {
+    color: black;
+    font-size: 20px;
+}
+
+
+
+

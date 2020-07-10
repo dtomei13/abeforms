@@ -1,0 +1,86 @@
+.logo {
+    width: 10%;
+    height: 10%;
+}
+
+.CF {
+    color: #10aacc;
+    font-weight: 100;
+    font-size: 2.8em;
+    color: rgb(0, 171, 203);
+    font-family: "Montserrat", sans-serif;
+}
+
+.formGroup {
+    color: #70757d;
+    font-family: "Libre Franklin", sans-serif;
+    font-size: 20px !important;
+}
+
+.submit{
+    background-color: rgb(255, 218, 101);
+    display: inline-block;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 6px 24px;
+    margin-top: 5px;
+   
+    margin-bottom: 10px;
+    text-decoration: none;
+    border-radius: 35%;
+    
+}
+
+.formStyle {
+    display: inline-block !important;
+    margin: 5px;
+    font-family: "Libre Franklin", sans-serif;
+    padding-bottom: 10%;
+    font-size: 20px !important;
+    padding-left: 20%;
+    margin-right: 255%;
+    text-align: left;
+    
+}
+
+.formStyle::placeholder{
+    color: #70757d;
+    text-align: left;
+    font-size: large;
+    font-weight: 5000;
+}
+
+.frm {
+    height: auto;
+    max-width: 800px;
+    /*padding: 20px 30px 30px 50px;*/
+    /* background-color: #eef7f8; */
+    position: absolute;
+    /*margin: 10%;*/
+    margin-top: 3%;
+    margin-left: 8%;
+    /*margin-right: -50%;*/
+    /*transform: translate(-50%, -50%);*/
+    border-radius: 100px;
+}
+
+h5{
+    text-align: left;
+}
+
+h1 {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+@media only screen
+and (min-device-width : 320px) {
+    .frm {
+        height: auto;
+        width: 70%;
+        min-width: 250px;
+        padding: 30px;
+        position: absolute;
+    }
+}

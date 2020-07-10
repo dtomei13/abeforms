@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
 import { Container } from "semantic-ui-react";
+import styles from './LawyerSignUpStyle.module.css'
+import abeLogo from "./abeLogo.png";
 
 let endpoint = "http://localhost:8080";
 
@@ -122,10 +124,10 @@ class LawyerSignUp extends Component {
           <div className="App">
             <div className="container" id="registration-form">
               <div className="image"></div>
-              <div className="frm">
+              <div className={styles.frm}>
                 <h1>Create your Abe Legal Account</h1>
                 <form onSubmit={this.onSubmit}>
-                  <div class="form-group">
+                  <div class={styles.formGroup}>
                     <h5>First Name:</h5>
                     <div>
                       <input
@@ -140,7 +142,7 @@ class LawyerSignUp extends Component {
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <div class={styles.formGroup}>
                     <h5>Last Name:</h5>
                     <div>
                       <input
@@ -155,7 +157,7 @@ class LawyerSignUp extends Component {
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <div class={styles.formGroup}>
                     <h5>Email:</h5>
                     <div>
                       <input
@@ -170,7 +172,7 @@ class LawyerSignUp extends Component {
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <div class={styles.formGroup}>
                     <h5>Phone Number:</h5>
                     <div>
                       <input
@@ -185,7 +187,7 @@ class LawyerSignUp extends Component {
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <div class={styles.formGroup}>
                     <h5>State Of License: </h5>
                     <div>
                       <input
@@ -200,7 +202,7 @@ class LawyerSignUp extends Component {
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <div class={styles.formGroup}>
                     <h5>Expertise:</h5>
                     <div>
                       <input
@@ -215,7 +217,7 @@ class LawyerSignUp extends Component {
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <div class={styles.formGroup}>
                     <h5>Password: (Minimum 8 Characters)</h5>
                     <div>
                       <input
@@ -229,7 +231,7 @@ class LawyerSignUp extends Component {
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <div class={styles.formGroup}>
                     <h5>Retype Password: </h5>
                     <div>
                       <input
@@ -243,15 +245,16 @@ class LawyerSignUp extends Component {
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <div class={styles.formGroup}>
                     <button type="submit" class="btn btn-success btn-lg">
                       Submit
                     </button>
-                  </div>
-                  <p>
+                    <p>
                     Already have an account? Click{" "}
                     <a href="/lawyerdashboard/sign_in">here</a>
                   </p>
+                  </div>
+
                 </form>
               </div>
             </div>

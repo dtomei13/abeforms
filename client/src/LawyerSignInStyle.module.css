@@ -1,0 +1,156 @@
+.formElement,
+.formGroup,
+.App {
+    width: 600px;
+    margin: auto;
+    margin-right: 30%;
+    margin-top: 0px;
+}
+
+.blank {
+    margin: 0%;
+    color: white;
+}
+
+.already {
+    margin-left: 51%;
+}
+.subheading {
+    margin-left: 28%;
+    font-family: "Montserrat", sans-serif;
+}
+
+.formStyle:focus {
+    color: black;
+    font-size: 20px;
+}
+
+.labels,
+.formStyle {
+    display: inline-block !important;
+    margin: 5px;
+    font-family: "Libre Franklin", sans-serif;
+    color: grey !important;
+    font-size: 20px !important;
+}
+
+.logo {
+    float: left;
+    width: 20%;
+    height: 20%;
+    margin-left: 0% !important;
+    margin-right: 50% !important;
+    margin-top: 10px !important;
+}
+
+.formGroup {
+    /* Other styling... */
+    text-align: right;
+    clear: both;
+    margin-right: 23%;
+}
+
+.heading {
+    font-family: "Montserrat", sans-serif;
+    margin-left: 30%;
+    margin-top: 50px;
+    text-align: center;
+    font-weight: 100;
+    font-size: 2.8em;
+    color: rgb(0, 171, 203);
+}
+
+.formStyle {
+    background-color: #e2e2e2;
+    padding: 20px;
+    width: 400px;
+    margin-bottom: 20px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #ecf0f1;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    font-size: 1em;
+    font-weight: 100;
+    color: #ffffff;
+}
+
+.formButton {
+    float: right;
+    background-color: rgb(255, 218, 101);
+    display: inline-block;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 6px 24px;
+    margin-top: 5px;
+    margin-right: 25%;
+    margin-bottom: 10px;
+    text-decoration: none;
+    border-radius: 35%;
+}
+
+.formButton:hover {
+    background-color: rgb(255, 218, 101);
+    color: #ffffff;
+}
+
+.formButton:active {
+    position: relative;
+    top: 3px;
+    color: white;
+}
+
+/*To remove the outline that appears on clicking the input textbox*/
+.formStyle:focus {
+    outline: none;
+}
+
+/* To format the placeholder text color */
+::-webkit-input-placeholder {
+    color: #ecf0f1;
+}
+
+:-moz-placeholder {
+    /* Firefox 18- */
+    color: #ecf0f1;
+}
+
+::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #ecf0f1;
+}
+
+:-ms-input-placeholder {
+    color: #ecf0f1;
+}
+
+@media screen and (max-width: 600px) {
+    .logo {
+        height: 35%;
+        width: 35%;
+    }
+    .formElement,
+    .formGroup,
+    .App {
+        width: 300px;
+    }
+    .heading {
+        margin-right: 90% !important;
+        float: left !important;
+    }
+    .subheading {
+        margin-right: 23%;
+    }
+    .labels {
+        float: left;
+    }
+    .already {
+        margin-right: 34%;
+    }
+    .formStyle {
+        width: 95% !important;
+        float: left;
+    }
+}

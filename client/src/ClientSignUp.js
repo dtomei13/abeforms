@@ -3,6 +3,7 @@ import axios from "axios";
 import "./App.css";
 import { Container } from "semantic-ui-react";
 
+
 let endpoint = "http://localhost:8080";
 
 class ClientSignUp extends Component {

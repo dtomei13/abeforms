@@ -3,6 +3,7 @@ import axios from "axios";
 import "./App.css";
 import { Container, Form } from "semantic-ui-react";
 import { Redirect } from "react-router-dom";
+import styles from './LawyerSignInStyle.module.css'
 
 let endpoint = "http://localhost:8080";
 
@@ -59,11 +60,11 @@ class LawyerSignIn extends Component {
           <div className="App">
             <div className="container" id="registration-form">
               <div className="image"></div>
-              <div className="frm">
+              <div className={styles.frm}>
                 <h1>Sign in</h1>
                 <p>to continue to Abe</p>
                 <Form onSubmit={this.onPress}>
-                  <div class="form-group">
+                  <div class={styles.formGroup}>
                     <h5>Email Address:</h5>
                     <div>
                       <input
@@ -78,7 +79,7 @@ class LawyerSignIn extends Component {
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <div class={styles.formGroup}>
                     <h5>Password:</h5>
                     <div>
                       <input
@@ -93,13 +94,14 @@ class LawyerSignIn extends Component {
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <div class={styles.formGroup}>
                     <button class="btn btn-success btn-lg">Submit</button>
-                  </div>
-                  <p>
+                    <p>
                     Don't have an account? Click{" "}
                     <a href="/lawyerdashboard/sign_up">here</a>
                   </p>
+                  </div>
+
                 </Form>
               </div>
             </div>

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
 import abeLogo from "./abeLogo.png";
+import styles from './clientsStyle.module.css';
 
 let endpoint = "http://localhost:8080";
 
@@ -74,10 +75,10 @@ class Clients extends Component {
           <div className="container" id="registration-form">
             <div className="image"></div>
 
-            <div className="frm">
-              <h1>Case Form</h1>
+            <div className={styles.frm}>
+              <h1 className={styles.CF}>Case Form</h1>
               <form className="containerWithoutTitle" onSubmit={this.onSubmit}>
-                <div class="form-group">
+                <div class={styles.formGroup}>
                   <h5>First Name:</h5>
                   <div>
                     <input
@@ -92,7 +93,7 @@ class Clients extends Component {
                   </div>
                 </div>
 
-                <div class="form-group">
+                <div class={styles.formGroup}>
                   <h5>Last Name:</h5>
                   <div>
                     <input
@@ -107,7 +108,7 @@ class Clients extends Component {
                   </div>
                 </div>
 
-                <div class="form-group">
+                <div class={styles.formGroup}>
                   <h5>Email:</h5>
                   <div>
                     <input
@@ -122,7 +123,7 @@ class Clients extends Component {
                   </div>
                 </div>
 
-                <div class="form-group">
+                <div class={styles.formGroup}>
                   <h5>Phone Number:</h5>
                   <div>
                     <input
@@ -137,7 +138,7 @@ class Clients extends Component {
                   </div>
                 </div>
 
-                <div class="form-group">
+                <div class={styles.formGroup}>
                   <h5>Location of Legal Issue:</h5>
                   <div>
                     <input
@@ -152,7 +153,7 @@ class Clients extends Component {
                   </div>
                 </div>
 
-                <div class="form-group">
+              <div class={styles.formGroup}>
                   <h5>Description:</h5>
                   <div>
                     <input
@@ -167,7 +168,7 @@ class Clients extends Component {
                   </div>
                 </div>
 
-                <div class="form-group">
+                <div class={styles.formGroup}>
                   <h5>How did you find Abe Legal?</h5>
                   <div>
                     <input
@@ -182,7 +183,7 @@ class Clients extends Component {
                   </div>
                 </div>
 
-                <div class="form-group">
+                <div class={styles.formGroup}>
                   <h5>Share your Social Media: (Instagram, Twitter, etc)</h5>
                   <div>
                     <input
@@ -197,7 +198,7 @@ class Clients extends Component {
                   </div>
                 </div>
 
-                <div class="form-group">
+                <div class={styles.formGroup}>
                   <button type="submit" class="btn btn-success btn-lg">
                     Submit
                   </button>
